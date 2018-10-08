@@ -4,8 +4,7 @@ import TravelerLogin from "./TravelerLogin";
 import Signup from "./Signup";
 import Home from "./home";
 import OwnerLogin from "./OwnerLogin";
-import Tripboards from "./Tripboards";
-//import OwnerDashboard from "./OwnerDashboard";
+
 import AddPropertyDetails from "./AddPropertyDetails";
 import Profile from "./profile";
 
@@ -22,10 +21,10 @@ class App extends Component {
         <Route path="/Signup" component={Signup} />
         <Route path="/TravelerLogin" component={TravelerLogin} />
         <Route path="/AddPropertyDetails" component={AddPropertyDetails} />
-        <Route path="/Tripboards" component={Tripboards} />
+       
         <Route path="/OwnerLogin" component={OwnerLogin} />
         <Route path="/Profile" component={Profile} />
-        {/*<Route path="/OwnerDashboard" component={OwnerDashboard} />*/}
+       
       </div>
     );
   }
