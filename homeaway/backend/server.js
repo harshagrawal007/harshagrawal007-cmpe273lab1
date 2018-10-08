@@ -38,7 +38,7 @@ app.use(
 app.use(bodyParser.json());
 
 //Allow Access Control
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
@@ -58,16 +58,16 @@ app.post("/", upload.single("Propertyimages"), (req, res) => {
     });
   } else {
     console.log("File received!", req.file);
-   
+
     res.send();
   }
 });
 
-app.post("/TravelLogin", function(req, res){
+app.post("/TravelLogin", function (req, res) {
   console.log("Inside Traveller login POST request");
   let username = req.body.email;
   let password = req.body.password;
-  console.log(username+" "+password);
+  console.log(username + " " + password);
   let sql =
     "SELECT * FROM traveller WHERE EMAIL = " +
     mysql.escape(username) +
@@ -91,7 +91,7 @@ app.post("/TravelLogin", function(req, res){
           res.end("Invalid Credentials");
         } else {
           console.log("Login successful");
-          res.cookie("travellercookie", req.body.email, {maxAge: 900000, httpOnly: false, path: "/"});
+          res.cookie("travellercookie", req.body.email, { maxAge: 900000, httpOnly: false, path: "/" });
           req.session.email = req.body.email;
           res.writeHead(200, {
             "Content-Type": "text/plain"
@@ -103,11 +103,12 @@ app.post("/TravelLogin", function(req, res){
   });
 });
 
-app.post("/OwnerLogin", function(req, res){
+
+app.post("/OwnerLogin", function (req, res) {
   console.log("Inside Owner login POST request");
   let username = req.body.email;
   let password = req.body.password;
-  console.log(username+" "+password);
+  console.log(username + " " + password);
   let sql =
     "SELECT * FROM owner WHERE EMAIL = " +
     mysql.escape(username) +
@@ -130,8 +131,9 @@ app.post("/OwnerLogin", function(req, res){
           });
           res.end("Invalid Credentials");
         } else {
+          console.log(result);
           console.log("Login successful");
-          res.cookie("ownercookie", req.body.email, {maxAge: 900000, httpOnly: false, path: "/"});
+          res.cookie("ownercookie", req.body.email, { maxAge: 900000, httpOnly: false, path: "/" });
           req.session.email = req.body.email;
           res.writeHead(200, {
             "Content-Type": "text/plain"
@@ -143,12 +145,17 @@ app.post("/OwnerLogin", function(req, res){
   });
 });
 
-app.post('/TravellerSignup', function(req,res){
+app.post('/TravellerSignup', function (req, res) {
   console.log("Inside Traveller Signup Request");
   console.log(req.body);
-  var query = "INSERT INTO `traveller`(`LAST_NAME`, `FIRST_NAME`, `Email`, `PASSWORD`)VALUES('"+req.body.firstname+"','"+req.body.lastname+"','"+(req.body.password)+"','"+req.body.email+"')";
+  let email = req.body.email;
+  let lastname = req.body.lastname;
+  let firstname = req.body.firstname;
+  let password = req.body.password;
+  var query = "INSERT INTO traveller(LAST_NAME,FIRST_NAME, Email,PASSWORD)VALUES(" +
+    mysql.escape(lastname) + "," + mysql.escape(firstname) + "," + mysql.escape(email) + "," + mysql.escape(password) + ")";
   console.log(query);
-  pool.getConnection(function(err, conn) {
+  pool.getConnection(function (err, conn) {
     if (!err) {
       console.log('You are now connected...')
       conn.query(query, function (error, results, fields) {
@@ -157,8 +164,92 @@ app.post('/TravellerSignup', function(req,res){
       })
       conn.release()
     }
+  });
+});
+
+app.post('/AddProperty', function (req, res) {
+  console.log("Inside Addproperty Signup Request");
+  console.log(req.body);
+
+  let owneremail = req.body.owneremail;
+  let Country = req.body.Country;
+  let Address = req.body.Address;
+  let Unit = req.body.Unit;
+  let City = req.body.City;
+  let State = req.body.State;
+  let Postal = req.body.Postal;
+  let Headline = req.body.Headline;
+  let Pdescription = req.body.Pdescription;
+  let Ptype = req.body.Ptype;
+  let Bedrooms = req.body.Bedrooms;
+  let Accomodates = req.body.Accomodates
+  let Bathrooms = req.body.Bathrooms;
+  let Minimumstay = req.body.Minimumstay;
+  let Baseprice = req.body.Baseprice;
+  let Pernight = req.body.Pernight;
+
+  var query = "INSERT INTO property(Country , address ,unit , city , state ,postal, headline , pdescription,ptype , bedrooms  , accomodates , bathrooms , minimimstay,baseprice , pernight,owneremail )VALUES(" +
+    mysql.escape(Country) + "," +
+    mysql.escape(Address) + "," +
+    mysql.escape(Unit) + "," +
+    mysql.escape(City) + "," +
+    mysql.escape(State) + "," +
+    mysql.escape(Postal) + "," +
+    mysql.escape(Headline) + "," +
+    mysql.escape(Pdescription) + "," +
+    mysql.escape(Ptype) + "," +
+    mysql.escape(Bedrooms) + "," +
+    mysql.escape(Accomodates) + "," +
+    mysql.escape(Bathrooms) + "," +
+    mysql.escape(Minimumstay) + "," +
+    mysql.escape(Baseprice) + "," +
+    mysql.escape(Pernight) + "," +
+    mysql.escape(owneremail) + ")";
+  console.log(query);
+  console.log("before connecting");
+  pool.getConnection(function (err, conn) {
+    if (!err) {
+      console.log('You are now connected...')
+      conn.query(query, function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        res.send(results)
+      })
+      conn.release()
+    }
+  });
+});
+    
+app.post('/getprofile', function(req,res){
+  console.log(req.body.email);
+  var email=req.body.email;
+  var sql = "SELECT * FROM traveller where email="+mysql.escape(email);
+  pool.getConnection(function(err,con){
+      if(err){
+          res.writeHead(400,{
+              'Content-Type' : 'text/plain'
+          })
+          res.end("Could Not Get Connection Object");
+      }else{
+          con.query(sql,function(err,result){
+              if(err){
+                  res.writeHead(400,{
+                      'Content-Type' : 'text/plain'
+                  })
+                  res.end("Could Not Get Connection Object");   
+              }else{
+                  res.writeHead(200,{
+                      'Content-Type' : 'application/json'
+                  })
+                  console.log(result);
+                  res.end(JSON.stringify(result));
+              }
+          });
+      }
   })
+  
 })
+
 
 
 /*app.get("/home", function(req, res) {
