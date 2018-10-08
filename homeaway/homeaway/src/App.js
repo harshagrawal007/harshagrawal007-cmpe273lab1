@@ -7,6 +7,7 @@ import OwnerLogin from "./OwnerLogin";
 import Tripboards from "./Tripboards";
 //import OwnerDashboard from "./OwnerDashboard";
 import AddPropertyDetails from "./AddPropertyDetails";
+import Profile from "./profile";
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ class App extends Component {
         <Route path="/AddPropertyDetails" component={AddPropertyDetails} />
         <Route path="/Tripboards" component={Tripboards} />
         <Route path="/OwnerLogin" component={OwnerLogin} />
+        <Route path="/Profile" component={Profile} />
         {/*<Route path="/OwnerDashboard" component={OwnerDashboard} />*/}
       </div>
     );

@@ -22,6 +22,9 @@ class Header extends Component {
 
   handleLogout = () => {
     cookie.remove("travellercookie", { path: "/" });
+    cookie.remove("ownercookie", { path: "/" });
+
+
   };
 
 
@@ -36,21 +39,52 @@ class Header extends Component {
     let temp = null;
     if (cookie.load("travellercookie")) {
       temp = (
-        <li> <Dropdown className="header-menu"
+        <Dropdown className="header-menu"
           isOpen={this.state.dropdownOpen}
           toggle={() => this.toggle()} >
           <DropdownToggle caret>
             {cookie.load("travellercookie")}
           </DropdownToggle>
           <DropdownMenu>
+            <DropdownItem >
+              {/* <Link to="/Myprofile">Profile</Link> */}
+              profile
+            </DropdownItem>
+            <DropdownItem>
+              {/* <Link to="/Tripboards">Mytrips</Link> */}
+              mytrips
+            </DropdownItem>
             <DropdownItem href="/home" onClick={this.handleLogout}>
               Logout
 </DropdownItem>
           </DropdownMenu>
-        </Dropdown></li>
+        </Dropdown>
       );
     }
-
+    else if (cookie.load("ownercookie")) {
+      temp = (
+        <Dropdown className="header-menu"
+          isOpen={this.state.dropdownOpen}
+          toggle={() => this.toggle()} >
+          <DropdownToggle caret>
+            {cookie.load("ownercookie")}
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem >
+              {/* <Link to="/Myprofile">Profile</Link>         */}
+              profile
+              </DropdownItem>
+            <DropdownItem>
+              {/* <Link to="/MyProperties">Myproperties</Link> */}
+              myproperties
+            </DropdownItem>
+            <DropdownItem href="/home" onClick={this.handleLogout}>
+              Logout
+</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      );
+    }
     else {
       temp = (
         <Dropdown
@@ -75,28 +109,28 @@ class Header extends Component {
     return (
       <div>
         <div>
-          <nav class="navbar navbar-expand-lg navbar-light ">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
+          <nav className="navbar navbar-expand-lg navbar-light ">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
                 {/* <div className="header"> */}
                 <Link className="logo" to="/home">
                   <img
-                    src="https://csvcus.homeaway.com/rsrcs/cdn-logos/2.11.0/bce/moniker/homeaway_us/logo-bceheader-white.svg"
+                    src="https://csvcus.homeaway.com/rsrcs/cdn-logos/2.10.6/bce/moniker/homeaway_us/logo-bceheader.svg"
                   />
                 </Link>
                 {/* </div> */}
               </ul>
-              <ul class="nav navbar-nav navbar-right">
+              <ul className="nav navbar-nav navbar-right">
                 <li> {temp}</li>
-                <li> 
-                <Link to="/AddpropertyDetails">
-                <button type="button" className="lyp">
-                  List your Property
+                <li>
+                  <Link to="/AddpropertyDetails">
+                    <button type="button" className="lyp">
+                      List your Property
         </button></Link>
-                  </li>
+                </li>
                 <li><img
                   className="logo-image"
-                  src="https://csvcus.homeaway.com/rsrcs/cdn-logos/2.11.0/bce/moniker/homeaway_us/birdhouse-bceheader-white.svg"
+                  src="https://csvcus.homeaway.com/rsrcs/cdn-logos/2.10.6/bce/moniker/homeaway_us/birdhouse-bceheader.svg"
                   alt="logo"
                   title="logo"
                 /></li>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./Header";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 class Signup extends Component {
     constructor(props) {
@@ -15,11 +17,12 @@ class Signup extends Component {
             lastnameCheck: false,
             emailCheck: false,
             passwordCheck: false,
-            authFlag: false
+            authFlag: false,
+            mainredirect:false
         };
         this.emailChangeHandler = this.emailChangeHandler.bind(this);
         this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
-        this.firstnameChangeHandler = this.emailChangeHandler.bind(this);
+        this.firstnameChangeHandler = this.firstnameChangeHandler.bind(this);
         this.lastnameChangeHandler = this.lastnameChangeHandler.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -64,7 +67,12 @@ class Signup extends Component {
             console.log("Axios POST response:", response.status);
 
             if (response.status === 200) {
-                this.setState({ authFlag: true });
+                alert("signup successfull");
+                this.setState({ authFlag: true ,
+                    mainredirectVar: <Redirect to="/home" />
+                
+                });
+                
             } else {
                 console.log("Signup unsuccessful!");
                 this.setState({ authFlag: false });
@@ -85,26 +93,26 @@ class Signup extends Component {
                         <div class="col">
                             <div class="panel-body">
                                 <h2>Sign up for HomeAway</h2>
-                                <h4> Already have an account?Log in</h4>
+                                <h4> Already have an account?<Link to="/TravelerLogin">Log in</Link></h4>
                                 <form id="register-form" action="" method="post" role="form" >
                                     <div class="form-group">
-                                        <input type="text" required name="firstname" id="firstname" tabindex="1" class="form-control" placeholder="FirstName" />
+                                        <input type="text" required name="firstname" id="firstname" tabindex="1" class="form-control" placeholder="FirstName" onChange={this.firstnameChangeHandler} />
 
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" required name="lastname" id="lastname" tabindex="2" class="form-control" placeholder="Last Name" />
+                                        <input type="text" required name="lastname" id="lastname" tabindex="2" class="form-control" placeholder="Last Name" onChange={this.lastnameChangeHandler}/>
 
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" required name="email" id="email" tabindex="3" class="form-control" placeholder="Email Address"  />
+                                        <input type="email" required name="email" id="email" tabindex="3" class="form-control" placeholder="Email Address" onChange={this.emailChangeHandler} />
 
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" required name="password" id="password" tabindex="4" class="form-control" placeholder="Password" />
+                                        <input type="password" required name="password" id="password" tabindex="4" class="form-control" placeholder="Password" onChange={this.passwordChangeHandler} />
                                        
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="register-submit" id="register-submit" tabindex="5" class="form-control " onClick={this.handleSubmit} value="Sign Up" />
+                                        <input type="submit" name="signup-submit" id="signup-submit" tabindex="5" class="form-control " onClick={this.handleSubmit} value="Sign Up" />
                                     </div>
                                 </form>
                             </div>

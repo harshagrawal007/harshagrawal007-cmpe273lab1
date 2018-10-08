@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 //import "styles/login.scss";
 
 class TravelerLogin extends Component {
@@ -76,7 +77,7 @@ class TravelerLogin extends Component {
             <div class="col">
               <div class="panel-body">
                 <h2>Login to HomeAway</h2>
-                <p>Need an account? Sign Up</p>
+                <p>Need an account?<Link to="/Signup">Sign up</Link></p>
                 <form onSubmit={this.handleSubmit}>
                   <h3>Account Login</h3>
                   <div class="form-group">

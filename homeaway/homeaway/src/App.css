@@ -63,6 +63,14 @@ display:block;
   width:250px;
   
 }
+
+.profile-image{
+  margin-right:auto;
+  margin-left:auto;
+  display:block;
+}
+
+
 .login-container{
     margin: auto;
     width: fit-content;

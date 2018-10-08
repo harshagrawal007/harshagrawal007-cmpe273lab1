@@ -9,6 +9,7 @@ class AddPropertyDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      owneremail:"",
       Country: "",
       Address: "",
       Unit: "",
@@ -143,7 +144,19 @@ class AddPropertyDetails extends Component {
   };
 
   submitPropertyInfo = () => {
+
+    
+    if (cookie.load("travellercookie")  ) {
+     
+     this.state.owneremail= cookie.load("travellercookie");
+    }
+    if (cookie.load("ownercookie") ) {
+     
+      this.state.owneremail=cookie.load("ownercookie");
+    }
+
     const data = {
+      owneremail:this.state.owneremail,
       Country: this.state.Country,
       Address: this.state.Address,
       Unit: this.state.Unit,
@@ -167,8 +180,8 @@ class AddPropertyDetails extends Component {
       console.log("Axios POST response:", response.status);
 
       if (response.status === 200) {
+        alert("Property successfully posted");
         console.log("Property  posted!");
-        console.log(response);
       } else {
         console.log("Property not posted!");
       }
@@ -278,7 +291,7 @@ class AddPropertyDetails extends Component {
 
                         <div className="form-group">
                           <label>Bathrooms</label>
-                          <input id="bathrooms" value={this.state.Bathrooms} onChange={this.BathroomsChangeHandler} type="text" className="form-control" />
+                          <input id="bathrooms" value={this.state.Bathrooms} onChange={this.bathroomsChangeHandler} type="text" className="form-control" />
                         </div>
 
                       </form>

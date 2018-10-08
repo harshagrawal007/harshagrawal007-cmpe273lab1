@@ -12,46 +12,44 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
+            < body alt="background" background="//csvcus.homeaway.com/rsrcs/stab-cms-resources/0.10.30/images/homepage/jumbotron/ptaHpNextHeroImage/large.jpg" >
+                <div className="bg-img">
 
-                < body alt="background" background="//csvcus.homeaway.com/rsrcs/stab-cms-resources/0.10.30/images/homepage/jumbotron/ptaHpNextHeroImage/large.jpg" >
-                    <div className="bg-img">
+                    <div>
+                        <Header></Header>
+                    </div>
 
-                        <div>
-                            <Header></Header>
+                    <div className="row myseacrhrow">
+
+                        <div className="col">
                         </div>
-
-                        <div class="row myseacrhrow">
-
-                            <div class="col">
-                            </div>
-                            <div class="col-10">
-                                <form class="SearchForm checkin-focus">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <input type="text" name="city" size="10" placeholder="Where do you want to go?" class="control form-control" value=""></input>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="date" name="arrival" class="form-control " value="" ></input>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="date" name="departure" class="form-control " value="" ></input>
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="number" name="Guests" placeholder="Guests" class="form-control" value="" ></input>
-                                        </div>
-                                        <div class="col-1">
-                                            <button type="submit" class="SearchForm__button search__button btn btn-primary">Search</button>
-                                        </div>
+                        <div className="col-10">
+                            <form className="SearchForm checkin-focus">
+                                <div className="row">
+                                    <div className="col-3">
+                                        <input type="text" name="city" size="10" placeholder="Where do you want to go?" className="control form-control" value=""></input>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="col">
-                            </div>
+                                    <div className="col-3">
+                                        <input type="date" name="arrival" className="form-control " value="" ></input>
+                                    </div>
+                                    <div className="col-3">
+                                        <input type="date" name="departure" className="form-control " value="" ></input>
+                                    </div>
+                                    <div className="col-2">
+                                        <input type="number" name="Guests" placeholder="Guests" className="form-control" value="" ></input>
+                                    </div>
+                                    <div className="col-1">
+                                        <button type="submit" className="SearchForm__button search__button btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div className="col">
                         </div>
                     </div>
-                </ body>
-            </div>
+                </div>
+            </ body>
+
         );
 
     }
